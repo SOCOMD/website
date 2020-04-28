@@ -8,9 +8,13 @@ WORKDIR /go
 COPY ./backend/ .
 RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o main .
 
-FROM alpine:latest as setup
+FROM alpine:latest
+WORKDIR /app
+COPY --from=webBuilder /website/build/ ./content/
+COPY --from=goBuilder /go/main ./main
+
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/* && update-ca-certificates
-ENV USER=appuser
+ENV USER=website
 ENV UID=10001
 RUN adduser \    
     --disabled-password \    
@@ -21,12 +25,7 @@ RUN adduser \
     --uid "${UID}" \    
     "${USER}"
 
-FROM scratch
-WORKDIR /app
-COPY --from=webBuilder /website/build/ ./content/
-COPY --from=goBuilder /go/main ./main
-COPY --from=setup /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-
-USER appuser:appuser
+RUN chown ${USER}:${USER} -R /app
+USER ${USER}:${USER}
 EXPOSE 8080
 CMD [ "/app/main" ]
