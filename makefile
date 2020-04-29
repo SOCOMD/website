@@ -1,3 +1,7 @@
+.PHONY: run
+run:
+	@docker run -p 9000:8080 socomd-website:latest;
+	@echo "Website Available on: http://localhost:9000";
 .PHONY: build
 build: 
 	docker build -f dockerfile -t socomd-website:latest .
