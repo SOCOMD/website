@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  website:
+    image: "docker.pkg.github.com/socomd/website/socomd-website:latest"
+    ports:
+      - "9090:8080"
