@@ -1,6 +1,6 @@
 FROM node:alpine as webBuilder
 WORKDIR /website
-COPY ./website/ .
+COPY ./web/ .
 RUN npm i && npm run-script build
 
 FROM golang:alpine as goBuilder
