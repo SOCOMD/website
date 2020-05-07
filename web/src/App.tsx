@@ -4,57 +4,39 @@ import CSS from 'csstype';
 import { motion } from "framer-motion"
 import { useMediaQuery } from 'react-responsive'
 
-const styles = {
-    AppStyle: {
-        textAlign: "center",
-    } as CSS.Properties,
-
-    AppLogoStyle: {
-        height: "40vmin",
-        pointerEvents: "none",
-    } as CSS.Properties,
-
-    AppHeaderStyle: {
-        backgroundColor: "#282c34",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "calc(10px + 2vmin)",
-        color: "white",
-    } as CSS.Properties,
-
-    appLinkStyle: {
-        color: "#61dafb",
-    } as CSS.Properties
-}
 
 
 function App() {
-  let logoAnimation:any = {};
-  if (useMediaQuery({query: '(prefers-reduced-motion: no-preference)'})) {
-    logoAnimation = {rotate: 360};
+  const isMobile = useMediaQuery({ maxDeviceWidth: 1199 })
+
+  var styles = {
+      App: {
+          display: "grid",
+          textAlign: "center",
+          minHeight: "100vh",
+          gridTemplateAreas: "'. header .' '. content .'",
+          gridTemplateRows: isMobile ? "5vh auto" : "10vh auto",
+          gridTemplateColumns: isMobile ? "0px auto 0px" : "auto 1200px auto",
+      } as CSS.Properties,
+      Header: {
+        display: "grid",
+        gridArea: "header",
+        background: "red",
+      } as CSS.Properties,
+      Content: {
+        gridArea: "content",
+        background: "blue",
+      } as CSS.Properties,
   }
+
   return (
-    <div className="App" style={styles.AppStyle}>
-      <header className="App-header" style={styles.AppHeaderStyle}>
-        <motion.div animate={logoAnimation} transition={{ duration: 20,loop: Infinity,ease:"linear"}}>
-          <img src={logo} className="App-logo" alt="logo" style={styles.AppLogoStyle} />
-        </motion.div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={styles.appLinkStyle}
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={styles.App}>
+      <div style={styles.Header}>
+        header 
+      </div>
+      <div style={styles.Content}>
+       content 
+      </div>
     </div>
   );
 }
