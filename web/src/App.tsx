@@ -1,22 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import CSS from 'csstype';
-import { motion } from "framer-motion"
+// import { motion } from "framer-motion"
 import { useMediaQuery } from 'react-responsive'
 
-
-
 function App() {
-  const isMobile = useMediaQuery({ maxDeviceWidth: 1199 })
-
+  const isMobile:boolean = useMediaQuery({ maxDeviceWidth: 1199 })
+  var headerHeight:string = isMobile ? "5vh" : "10vh"
+  var contentWidth:string = isMobile ? " 0px auto 0px" : "auto 1200px auto" 
   var styles = {
       App: {
           display: "grid",
           textAlign: "center",
           minHeight: "100vh",
           gridTemplateAreas: "'. header .' '. content .'",
-          gridTemplateRows: isMobile ? "5vh auto" : "10vh auto",
-          gridTemplateColumns: isMobile ? "0px auto 0px" : "auto 1200px auto",
+          gridTemplateRows: `${headerHeight} auto` ,
+          gridTemplateColumns: contentWidth ,
       } as CSS.Properties,
       Header: {
         display: "grid",
