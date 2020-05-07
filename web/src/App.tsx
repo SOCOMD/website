@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive'
 function App() {
   const isMobile:boolean = useMediaQuery({ maxDeviceWidth: 1199 })
   var headerHeight:string = isMobile ? "5vh" : "10vh"
-  var contentWidth:string = isMobile ? " 0px auto 0px" : "auto 1200px auto" 
+  var contentWidth:string = isMobile ? "0px auto 0px" : "auto 1200px auto" 
   var styles = {
       App: {
           display: "grid",
