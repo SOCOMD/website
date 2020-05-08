@@ -1,43 +1,59 @@
 import React from 'react';
-import CSS from 'csstype';
-// import { motion } from "framer-motion"
 import { useMediaQuery } from 'react-responsive'
+import styled,{keyframes} from 'styled-components';
 
-function App() {
-  const isMobile:boolean = useMediaQuery({ maxDeviceWidth: 1199 })
+
+const spin = keyframes`
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+`
+function AppComponent() {
+  const isMobile:boolean = useMediaQuery({ maxWidth: 1199 })
   var headerHeight:string = isMobile ? "5vh" : "10vh"
   var contentWidth:string = isMobile ? "0px auto 0px" : "auto 1200px auto" 
-  var styles = {
-      App: {
-          display: "grid",
-          textAlign: "center",
-          minHeight: "100vh",
-          gridTemplateAreas: "'. header .' '. content .'",
-          gridTemplateRows: `${headerHeight} auto` ,
-          gridTemplateColumns: contentWidth ,
-      } as CSS.Properties,
-      Header: {
-        display: "grid",
-        gridArea: "header",
-        background: "red",
-      } as CSS.Properties,
-      Content: {
-        gridArea: "content",
-        background: "blue",
-      } as CSS.Properties,
-  }
+  const App = styled.div`
+    display: grid;
+    text-align: center;
+    min-height: 100vh;
+    grid-template-areas: 
+      ". header ." 
+      ". content .";
+    grid-template-rows: ${headerHeight} auto;
+    grid-template-columns: ${contentWidth}; 
+    
+    `
+  const Header = styled.div`
+    grid-area: header;
+    background: red;
+
+    p {
+      animation: ${spin} infinite 2s linear;
+    }
+  `
+
+  const Content = styled.div`
+    grid-area: content;
+    background: blue;
+  `
+
 
   return (
-    <div className="App" style={styles.App}>
-      <div style={styles.Header}>
-        header 
-      </div>
-      <div style={styles.Content}>
+    <App>
+      <Header>
+        <p>
+          header 
+        </p>
+      </Header>
+      <Content>
        content 
-      </div>
-    </div>
+      </Content>
+    </App>
   );
 }
 
 
-export default App;
+export default AppComponent;
