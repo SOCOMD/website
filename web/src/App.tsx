@@ -11,38 +11,38 @@ to {
   transform: rotate(360deg);
 }
 `
+
+interface AppProps {
+  Mobile: boolean
+}
+const App = styled.div<AppProps>`
+  display: grid;
+  text-align: center;
+  min-height: 100vh;
+  grid-template-areas: 
+    ". header ." 
+    ". content .";
+  grid-template-rows: ${props => props.Mobile ? "5vh" : "10vh"} auto;
+  grid-template-columns: ${props => props.Mobile ? "0px auto 0px" : "auto 1200px auto"}; 
+`
+const Header = styled.div`
+  grid-area: header;
+  background: red;
+
+  p {
+    animation: ${spin} infinite 2s linear;
+  }
+`
+
+const Content = styled.div`
+  grid-area: content;
+  background: blue;
+`
+// const app = styled.var
 function AppComponent() {
   const isMobile:boolean = useMediaQuery({ maxWidth: 1199 })
-  var headerHeight:string = isMobile ? "5vh" : "10vh"
-  var contentWidth:string = isMobile ? "0px auto 0px" : "auto 1200px auto" 
-  const App = styled.div`
-    display: grid;
-    text-align: center;
-    min-height: 100vh;
-    grid-template-areas: 
-      ". header ." 
-      ". content .";
-    grid-template-rows: ${headerHeight} auto;
-    grid-template-columns: ${contentWidth}; 
-    
-    `
-  const Header = styled.div`
-    grid-area: header;
-    background: red;
-
-    p {
-      animation: ${spin} infinite 2s linear;
-    }
-  `
-
-  const Content = styled.div`
-    grid-area: content;
-    background: blue;
-  `
-
-
   return (
-    <App>
+    <App Mobile={isMobile}>
       <Header>
         <p>
           header 
