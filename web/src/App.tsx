@@ -1,21 +1,13 @@
 import React from 'react';
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 import styled,{keyframes} from 'styled-components';
 
-
-const spin = keyframes`
-from {
-  transform: rotate(0deg);
-}
-to {
-  transform: rotate(360deg);
-}
-`
+import Content from './Content';
 
 interface AppProps {
   Mobile: boolean
 }
-const App = styled.div<AppProps>`
+const AppComponent = styled.div<AppProps>`
   display: grid;
   text-align: center;
   min-height: 100vh;
@@ -25,35 +17,34 @@ const App = styled.div<AppProps>`
   grid-template-rows: ${props => props.Mobile ? "5vh" : "10vh"} auto;
   grid-template-columns: ${props => props.Mobile ? "0px auto 0px" : "auto 1200px auto"}; 
 `
-const Header = styled.div`
+interface themeProps {
+  DarkTheme: boolean
+}
+const Header = styled.div<themeProps>`
   grid-area: header;
-  background: red;
-
-  p {
-    animation: ${spin} infinite 2s linear;
-  }
+  background: ${props => props.DarkTheme ? '#202020':'#C0C0C0'}; 
 `
 
-const Content = styled.div`
+const ContentContainer = styled.div<themeProps>`
   grid-area: content;
-  background: blue;
+  background: ${props => props.DarkTheme ? '#404040':'#E8E8E8'}; 
 `
 // const app = styled.var
-function AppComponent() {
+function App() {
   const isMobile:boolean = useMediaQuery({ maxWidth: 1199 })
+  const isDarkTheme:boolean = useMediaQuery({query: '(prefers-color-scheme: dark)'})
   return (
-    <App Mobile={isMobile}>
-      <Header>
+    <AppComponent Mobile={isMobile}>
+      <Header DarkTheme={isDarkTheme}>
         <p>
           header 
         </p>
       </Header>
-      <Content>
-       content 
-      </Content>
-    </App>
+      <ContentContainer DarkTheme={isDarkTheme}>
+        <Content Mobile={isMobile} DarkTheme={isDarkTheme}/> 
+      </ContentContainer>
+    </AppComponent>
   );
 }
 
-
-export default AppComponent;
+export default App;
