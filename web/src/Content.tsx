@@ -14,9 +14,10 @@ const rules = [
 
 
 const ContentDiv = styled.div<ContentProps>`
-padding-left: ${props => props.Mobile ? "2%": "10%"};
-padding-right: ${props => props.Mobile ? "2%": "10%"};
+padding-left: ${props => props.Mobile ? "5%": "10%"};
+padding-right: ${props => props.Mobile ? "5%": "10%"};
 text-align: left;
+position: relative;
 section {
   margin: ${props => props.Mobile ? "10px 0px 10px 0px" : "20px 0px 20px 0px"};
   h1 {
@@ -24,21 +25,25 @@ section {
     text-transform: uppercase;
     font-size: 40px;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    // text-decoration: underline;
+    // text-decoration-color: red;
   };
-  h1::after,h1::before {
-    content: ' >';
-    color: red;
-    width: 100%;
-  };
-  h1::before {
-    content: '< ';
-  };
+  // h1::after,h1::before {
+  //   content: ' >';
+  //   font-size: 50px;
+  //   color: green;
+  //   width: 100%;
+  // };
+  // h1::before {
+  //   content: '< ';
+  // };
   ul {
     list-style: none;
     li::before {
-      content: '~ ';
+      content: '- ';
       color: red;
+      padding-left: 5px;
     };
   };
 };
@@ -48,6 +53,7 @@ export interface ContentProps {
   Mobile: boolean
   DarkTheme: boolean
 }
+
 function Content(props: ContentProps) {
   return (
     <ContentDiv Mobile={props.Mobile} DarkTheme={props.DarkTheme}>
@@ -90,7 +96,6 @@ function Content(props: ContentProps) {
           <h3>Friday Night - Official Operations</h3>
           <ul>
             <li>Friday Nights are reserved for our main operations</li>
-            <li>Begins 8:00PM AEST, members are to be on teamspeak 15 minutes prior to start time</li>
             <li>Begins 8:00PM AEST, members are to be on teamspeak 15 minutes prior to start time</li>
             <li>Concludes with a debrief</li>
             <li>expected duration 1.5 hours to 3 hours</li>
@@ -157,7 +162,6 @@ function Content(props: ContentProps) {
           to apply.
         </p>
         <p>
-          <b>Acceptance</b><br/>
           Our Staff will respond via email within 24 hours of your application 
           being submitted, and you will be provided with our teamspeak link as 
           well as instructions for scheduling an interview. Once you've joined 

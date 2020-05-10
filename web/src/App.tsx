@@ -3,6 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import styled,{keyframes} from 'styled-components';
 
 import Content from './Content';
+import Header from './Header';
 
 interface AppProps {
   Mobile: boolean
@@ -14,16 +15,12 @@ const AppComponent = styled.div<AppProps>`
   grid-template-areas: 
     ". header ." 
     ". content .";
-  grid-template-rows: ${props => props.Mobile ? "5vh" : "10vh"} auto;
+  grid-template-rows: ${props => props.Mobile ? "5vh" : "5vh"} auto;
   grid-template-columns: ${props => props.Mobile ? "0px auto 0px" : "auto 1200px auto"}; 
 `
 interface themeProps {
   DarkTheme: boolean
 }
-const Header = styled.div<themeProps>`
-  grid-area: header;
-  background: ${props => props.DarkTheme ? '#202020':'#C0C0C0'}; 
-`
 
 const ContentContainer = styled.div<themeProps>`
   grid-area: content;
@@ -35,11 +32,7 @@ function App() {
   const isDarkTheme:boolean = useMediaQuery({query: '(prefers-color-scheme: dark)'})
   return (
     <AppComponent Mobile={isMobile}>
-      <Header DarkTheme={isDarkTheme}>
-        <p>
-          header 
-        </p>
-      </Header>
+      <Header DarkTheme={isDarkTheme}/>
       <ContentContainer DarkTheme={isDarkTheme}>
         <Content Mobile={isMobile} DarkTheme={isDarkTheme}/> 
       </ContentContainer>
